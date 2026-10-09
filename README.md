@@ -13,7 +13,8 @@ A Minecraft 26.2 / NeoForge cyberware mod prototype inspired by Cyberpunk 2077 a
 - **Mantis Blades** — focused melee strike.
 - **Monowire** — wider melee sweep.
 - **Cyberdeck** — quickhack pulse that highlights and slows nearby hostile mobs.
-- **Shared implant battery** — 100 energy, with a passive recharge rate of 1 point per 4 ticks. Activations cost 12–30 energy depending on the implant; failed activations do not trigger the ability.
+- **Shared implant battery** — starts at 100 energy, regenerates 1 point per 4 ticks, and spends 12–30 energy per activation. Failed activations do not trigger the ability.
+- **Capacity upgrades** — craft and consume Cyberware Capacity Shards to permanently add +20 maximum energy, up to 200. The shard is consumed on use and cannot be applied past the cap.
 - **Cyberpsychosis** — neural strain accumulates when you activate cyberware and decays by one point every 30 seconds without implant use. At 12 strain, neural overload briefly applies weakness and slowness. Sandevistan builds strain fastest; cyberdeck builds it slowest.
 - Two mutually exclusive persistent implant slots: **Operating System** and **Arms**. Installed slot choices are stored on the player.
 - All four cyberware implants can now be crafted from vanilla resources, implant chips and neural processors; those components also have recipes.

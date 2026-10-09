@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["RGR", "CNC", " A "],
+  "key": {
+    "R": "minecraft:redstone",
+    "G": "minecraft:gold_ingot",
+    "C": "cybercraft:implant_chip",
+    "N": "cybercraft:neural_processor",
+    "A": "minecraft:amethyst_shard"
+  },
+  "result": { "id": "cybercraft:cyberdeck", "count": 1 }
+}

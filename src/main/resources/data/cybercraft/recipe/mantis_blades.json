@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [" I ", "DND", " I "],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "D": "minecraft:diamond",
+    "N": "cybercraft:neural_processor"
+  },
+  "result": { "id": "cybercraft:mantis_blades", "count": 1 }
+}

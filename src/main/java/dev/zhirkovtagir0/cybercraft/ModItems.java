@@ -25,4 +25,6 @@ public final class ModItems {
             ITEMS.register("implant_chip", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final java.util.function.Supplier<Item> NEURAL_PROCESSOR =
             ITEMS.register("neural_processor", () -> new Item(new Item.Properties().stacksTo(16)));
+    public static final java.util.function.Supplier<Item> CAPACITY_SHARD =
+            ITEMS.register("capacity_shard", () -> new CapacityShardItem(new Item.Properties().stacksTo(16)));
 }

@@ -4,6 +4,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +22,8 @@ public final class CyberwareItem extends Item {
 
     private static final String OS_SLOT = "cybercraft_implant_os";
     private static final String ARMS_SLOT = "cybercraft_implant_arms";
+    private static final String STRAIN_KEY = "cybercraft_neural_strain";
+    private static final int CYBERPSYCHOSIS_THRESHOLD = 12;
 
     private final Ability ability;
 
@@ -45,6 +49,14 @@ public final class CyberwareItem extends Item {
             case MANTIS_BLADES -> "mantis_blades";
             case MONOWIRE -> "monowire";
             case CYBERDECK -> "cyberdeck";
+        };
+    }
+
+    private int strainCost() {
+        return switch (ability) {
+            case SANDEVISTAN -> 3;
+            case MANTIS_BLADES, MONOWIRE -> 2;
+            case CYBERDECK -> 1;
         };
     }
 
@@ -83,12 +95,16 @@ public final class CyberwareItem extends Item {
         }
 
         if (!level.isClientSide()) {
+            if (addNeuralStrain(player)) {
+                player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1));
+                notifyPlayer(player, "CYBERPSYCHOSIS // NEURAL OVERLOAD", ChatFormatting.DARK_RED);
+            }
+
             switch (ability) {
                 case SANDEVISTAN -> {
-                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.SPEED, 100, 2));
-                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.RESISTANCE, 60, 0));
+                    player.addEffect(new MobEffectInstance(MobEffects.SPEED, 100, 2));
+                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 60, 0));
                     player.getCooldowns().addCooldown(stack, 240);
                     notifyPlayer(player, "SANDEVISTAN // SYSTEM ONLINE", ChatFormatting.AQUA);
                 }
@@ -107,10 +123,8 @@ public final class CyberwareItem extends Item {
                     for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class,
                             player.getBoundingBox().inflate(12.0),
                             entity -> entity instanceof Monster && entity.isAlive())) {
-                        target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                                net.minecraft.world.effect.MobEffects.GLOWING, 100, 0));
-                        target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                                net.minecraft.world.effect.MobEffects.SLOWNESS, 60, 1));
+                        target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0));
+                        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 1));
                         hacked++;
                     }
                     player.getCooldowns().addCooldown(stack, 160);
@@ -119,6 +133,21 @@ public final class CyberwareItem extends Item {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * Tracks cumulative neural load. Overusing implants triggers a brief
+     * cyberpsychosis episode and partially resets accumulated strain.
+     */
+    private boolean addNeuralStrain(Player player) {
+        var data = player.getPersistentData();
+        int strain = data.getInt(STRAIN_KEY).orElse(0) + strainCost();
+        if (strain >= CYBERPSYCHOSIS_THRESHOLD) {
+            data.putInt(STRAIN_KEY, 4);
+            return true;
+        }
+        data.putInt(STRAIN_KEY, strain);
+        return false;
     }
 
     private static int strike(Level level, Player player, double reach, float damage, double width) {

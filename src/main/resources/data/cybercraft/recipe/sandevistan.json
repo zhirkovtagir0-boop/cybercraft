@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["DND", "RIR", " G "],
+  "key": {
+    "D": "minecraft:diamond",
+    "N": "cybercraft:neural_processor",
+    "R": "minecraft:redstone",
+    "I": "cybercraft:implant_chip",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": { "id": "cybercraft:sandevistan", "count": 1 }
+}

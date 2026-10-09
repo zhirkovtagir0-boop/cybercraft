@@ -13,6 +13,7 @@ A Minecraft 26.2 / NeoForge cyberware mod prototype inspired by Cyberpunk 2077 a
 - **Mantis Blades** — focused melee strike.
 - **Monowire** — wider melee sweep.
 - **Cyberdeck** — quickhack pulse that highlights and slows nearby hostile mobs.
+- **Shared implant battery** — 100 energy, with a passive recharge rate of 1 point per 4 ticks. Activations cost 12–30 energy depending on the implant; failed activations do not trigger the ability.
 - **Cyberpsychosis** — neural strain accumulates when you activate cyberware and decays by one point every 30 seconds without implant use. At 12 strain, neural overload briefly applies weakness and slowness. Sandevistan builds strain fastest; cyberdeck builds it slowest.
 - Two mutually exclusive persistent implant slots: **Operating System** and **Arms**. Installed slot choices are stored on the player.
 - All four cyberware implants can now be crafted from vanilla resources, implant chips and neural processors; those components also have recipes.
@@ -35,4 +36,4 @@ gradle build
 The JAR is created in `build/libs/`. On GitHub, open **Actions → Build mod** and download the `cybercraft-jar` artifact after a successful run.
 
 ## Roadmap / limitations
-This is the first playable mechanics milestone, not yet a complete Cyberpunk-style implant suite. Next steps are a ripperdoc workstation and GUI, capacity/energy budgets, cyberpsychosis, custom 3D models and animations, sound/particles, more quickhacks, balance/configuration and an in-game test pass. The CI build is the source of truth for API compatibility; do not treat a JAR as verified until the workflow finishes successfully.
+This is an early mechanics milestone, not yet a complete Cyberpunk-style implant suite. Next steps are a ripperdoc workstation and GUI, configurable cyberware capacity, custom 3D models and animations, sound/particles, more quickhacks, balance/configuration and an in-game test pass. The CI build is the source of truth for API compatibility; do not treat a JAR as verified until the workflow finishes successfully.

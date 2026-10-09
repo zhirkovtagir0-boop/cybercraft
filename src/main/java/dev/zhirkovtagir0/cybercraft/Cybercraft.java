@@ -31,6 +31,7 @@ public final class Cybercraft {
                         output.accept(ModItems.CYBERDECK.get());
                         output.accept(ModItems.IMPLANT_CHIP.get());
                         output.accept(ModItems.NEURAL_PROCESSOR.get());
+                        output.accept(ModItems.CAPACITY_SHARD.get());
                     })
                     .build());
 

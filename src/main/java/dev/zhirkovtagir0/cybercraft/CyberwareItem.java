@@ -2,7 +2,6 @@ package dev.zhirkovtagir0.cybercraft;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -49,10 +48,6 @@ public final class CyberwareItem extends Item {
         };
     }
 
-    private Identifier cooldownId() {
-        return Identifier.fromNamespaceAndPath(Cybercraft.MOD_ID, abilityId());
-    }
-
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -61,7 +56,7 @@ public final class CyberwareItem extends Item {
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide()) {
                 var data = player.getPersistentData();
-                String current = data.getString(slotKey());
+                String current = data.getString(slotKey()).orElse("");
                 if (current.equals(abilityId())) {
                     data.remove(slotKey());
                     notifyPlayer(player, slotName() + " // IMPLANT REMOVED", ChatFormatting.YELLOW);
@@ -75,7 +70,7 @@ public final class CyberwareItem extends Item {
         }
 
         if (!level.isClientSide()) {
-            String installed = player.getPersistentData().getString(slotKey());
+            String installed = player.getPersistentData().getString(slotKey()).orElse("");
             if (!installed.equals(abilityId())) {
                 notifyPlayer(player, "IMPLANT NOT INSTALLED // SNEAK + RIGHT-CLICK TO INSTALL",
                         ChatFormatting.RED);
@@ -83,7 +78,7 @@ public final class CyberwareItem extends Item {
             }
         }
 
-        if (player.getCooldowns().isOnCooldown(cooldownId())) {
+        if (player.getCooldowns().isOnCooldown(stack)) {
             return InteractionResult.FAIL;
         }
 
@@ -94,17 +89,17 @@ public final class CyberwareItem extends Item {
                             net.minecraft.world.effect.MobEffects.SPEED, 100, 2));
                     player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
                             net.minecraft.world.effect.MobEffects.RESISTANCE, 60, 0));
-                    player.getCooldowns().addCooldown(cooldownId(), 240);
+                    player.getCooldowns().addCooldown(stack, 240);
                     notifyPlayer(player, "SANDEVISTAN // SYSTEM ONLINE", ChatFormatting.AQUA);
                 }
                 case MANTIS_BLADES -> {
                     int hits = strike(level, player, 2.8, 7.0f, 1.4);
-                    player.getCooldowns().addCooldown(cooldownId(), 14);
+                    player.getCooldowns().addCooldown(stack, 14);
                     notifyPlayer(player, "MANTIS BLADES // " + hits + " HIT(S)", ChatFormatting.RED);
                 }
                 case MONOWIRE -> {
                     int hits = strike(level, player, 4.5, 5.0f, 3.0);
-                    player.getCooldowns().addCooldown(cooldownId(), 24);
+                    player.getCooldowns().addCooldown(stack, 24);
                     notifyPlayer(player, "MONOWIRE // " + hits + " TARGET(S) CUT", ChatFormatting.LIGHT_PURPLE);
                 }
                 case CYBERDECK -> {
@@ -118,7 +113,7 @@ public final class CyberwareItem extends Item {
                                 net.minecraft.world.effect.MobEffects.SLOWNESS, 60, 1));
                         hacked++;
                     }
-                    player.getCooldowns().addCooldown(cooldownId(), 160);
+                    player.getCooldowns().addCooldown(stack, 160);
                     notifyPlayer(player, "QUICKHACK // " + hacked + " TARGET(S)", ChatFormatting.GREEN);
                 }
             }

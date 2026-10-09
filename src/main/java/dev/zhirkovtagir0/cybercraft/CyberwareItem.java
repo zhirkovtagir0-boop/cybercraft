@@ -21,6 +21,9 @@ public final class CyberwareItem extends Item {
         SANDEVISTAN, MANTIS_BLADES, MONOWIRE, CYBERDECK
     }
 
+    private static final String OS_SLOT = "cybercraft_implant_os";
+    private static final String ARMS_SLOT = "cybercraft_implant_arms";
+
     private final Ability ability;
 
     public CyberwareItem(Properties properties, Ability ability) {
@@ -28,9 +31,56 @@ public final class CyberwareItem extends Item {
         this.ability = ability;
     }
 
+    private String slotKey() {
+        return switch (ability) {
+            case SANDEVISTAN, CYBERDECK -> OS_SLOT;
+            case MANTIS_BLADES, MONOWIRE -> ARMS_SLOT;
+        };
+    }
+
+    private String slotName() {
+        return slotKey().equals(OS_SLOT) ? "OPERATING SYSTEM" : "ARMS";
+    }
+
+    private String abilityId() {
+        return switch (ability) {
+            case SANDEVISTAN -> "sandevistan";
+            case MANTIS_BLADES -> "mantis_blades";
+            case MONOWIRE -> "monowire";
+            case CYBERDECK -> "cyberdeck";
+        };
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+
+        // Sneak + right-click installs or removes the implant in its body slot.
+        if (player.isShiftKeyDown()) {
+            if (!level.isClientSide()) {
+                var data = player.getPersistentData();
+                String current = data.getString(slotKey());
+                if (current.equals(abilityId())) {
+                    data.remove(slotKey());
+                    actionBar(player, slotName() + " // IMPLANT REMOVED", ChatFormatting.YELLOW);
+                } else {
+                    data.putString(slotKey(), abilityId());
+                    actionBar(player, slotName() + " // " + abilityId().toUpperCase() + " INSTALLED",
+                            ChatFormatting.AQUA);
+                }
+            }
+            return InteractionResultHolder.success(stack);
+        }
+
+        if (!level.isClientSide()) {
+            String installed = player.getPersistentData().getString(slotKey());
+            if (!installed.equals(abilityId())) {
+                actionBar(player, "IMPLANT NOT INSTALLED // SNEAK + RIGHT-CLICK TO INSTALL",
+                        ChatFormatting.RED);
+                return InteractionResultHolder.fail(stack);
+            }
+        }
+
         if (player.getCooldowns().isOnCooldown(this)) {
             return InteractionResultHolder.fail(stack);
         }
@@ -39,7 +89,7 @@ public final class CyberwareItem extends Item {
             switch (ability) {
                 case SANDEVISTAN -> {
                     player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 100, 2));
+                            net.minecraft.world.effect.MobEffects.SPEED, 100, 2));
                     player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
                             net.minecraft.world.effect.MobEffects.RESISTANCE, 60, 0));
                     player.getCooldowns().addCooldown(this, 240);
@@ -99,11 +149,12 @@ public final class CyberwareItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         switch (ability) {
-            case SANDEVISTAN -> tooltip.add(Component.literal("OS implant • speed burst • 12s cooldown").withStyle(ChatFormatting.AQUA));
-            case MANTIS_BLADES -> tooltip.add(Component.literal("Arms implant • focused melee strike").withStyle(ChatFormatting.RED));
-            case MONOWIRE -> tooltip.add(Component.literal("Arms implant • wide melee sweep").withStyle(ChatFormatting.LIGHT_PURPLE));
-            case CYBERDECK -> tooltip.add(Component.literal("Quickhack • reveal and slow nearby hostiles").withStyle(ChatFormatting.GREEN));
+            case SANDEVISTAN -> tooltip.add(Component.literal("OS slot • speed burst • 12s cooldown").withStyle(ChatFormatting.AQUA));
+            case MANTIS_BLADES -> tooltip.add(Component.literal("Arms slot • focused melee strike").withStyle(ChatFormatting.RED));
+            case MONOWIRE -> tooltip.add(Component.literal("Arms slot • wide melee sweep").withStyle(ChatFormatting.LIGHT_PURPLE));
+            case CYBERDECK -> tooltip.add(Component.literal("OS slot • reveal and slow nearby hostiles").withStyle(ChatFormatting.GREEN));
         }
-        tooltip.add(Component.literal("Prototype: activate with right-click").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Sneak + right-click: install/remove in slot").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.literal("Right-click: use installed implant").withStyle(ChatFormatting.GRAY));
     }
 }

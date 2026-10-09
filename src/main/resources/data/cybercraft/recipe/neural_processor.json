@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "AGA",
+    " G "
+  ],
+  "key": {
+    "R": "minecraft:redstone",
+    "A": "minecraft:amethyst_shard",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "cybercraft:neural_processor",
+    "count": 1
+  }
+}

@@ -13,7 +13,7 @@ A Minecraft 26.2 / NeoForge cyberware mod prototype inspired by Cyberpunk 2077 a
 - **Mantis Blades** — focused melee strike.
 - **Monowire** — wider melee sweep.
 - **Cyberdeck** — quickhack pulse that highlights and slows nearby hostile mobs.
-- **Cyberpsychosis** — neural strain accumulates when you activate cyberware; at 12 strain, neural overload briefly applies weakness and slowness. Sandevistan builds strain fastest; cyberdeck builds it slowest.
+- **Cyberpsychosis** — neural strain accumulates when you activate cyberware and decays by one point every 30 seconds without implant use. At 12 strain, neural overload briefly applies weakness and slowness. Sandevistan builds strain fastest; cyberdeck builds it slowest.
 - Two mutually exclusive persistent implant slots: **Operating System** and **Arms**. Installed slot choices are stored on the player.
 - Implant chips and neural processors have crafting recipes.
 - Russian and English item names, dedicated creative tab, item models using vanilla icons.

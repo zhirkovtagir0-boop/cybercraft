@@ -26,7 +26,8 @@ public final class CyberwareItem extends Item {
     private static final String STRAIN_TIME_KEY = "cybercraft_neural_strain_time";
     private static final String ENERGY_KEY = "cybercraft_implant_energy";
     private static final String ENERGY_TIME_KEY = "cybercraft_implant_energy_time";
-    private static final int MAX_ENERGY = 100;
+    private static final String CAPACITY_KEY = "cybercraft_energy_capacity_upgrades";
+    private static final int BASE_ENERGY = 100;
     private static final int CYBERPSYCHOSIS_THRESHOLD = 12;
 
     private final Ability ability;
@@ -54,6 +55,11 @@ public final class CyberwareItem extends Item {
             case MONOWIRE -> "monowire";
             case CYBERDECK -> "cyberdeck";
         };
+    }
+
+    private static int maxEnergy(Player player) {
+        int upgrades = Math.max(0, Math.min(5, player.getPersistentData().getInt(CAPACITY_KEY).orElse(0)));
+        return BASE_ENERGY + upgrades * 20;
     }
 
     private int energyCost() {
@@ -160,10 +166,11 @@ public final class CyberwareItem extends Item {
         var data = player.getPersistentData();
         long now = level.getGameTime();
         long lastTime = data.getLong(ENERGY_TIME_KEY).orElse(now);
-        int energy = data.getInt(ENERGY_KEY).orElse(MAX_ENERGY);
+        int capacity = maxEnergy(player);
+        int energy = Math.min(capacity, data.getInt(ENERGY_KEY).orElse(capacity));
         long elapsed = Math.max(0L, now - lastTime);
-        int regenerated = (int) Math.min(MAX_ENERGY, elapsed / 4L);
-        energy = Math.min(MAX_ENERGY, energy + regenerated);
+        int regenerated = (int) Math.min(Math.max(0, capacity - energy), elapsed / 4L);
+        energy = Math.min(capacity, energy + regenerated);
 
         // Preserve leftover ticks so short gaps don't lose fractional regeneration.
         long updatedTime = lastTime + (long) regenerated * 4L;
@@ -176,7 +183,7 @@ public final class CyberwareItem extends Item {
         energy -= energyCost();
         data.putInt(ENERGY_KEY, energy);
         data.putLong(ENERGY_TIME_KEY, now);
-        notifyPlayer(player, "IMPLANT CHARGE // " + energy + "/" + MAX_ENERGY, ChatFormatting.GRAY);
+        notifyPlayer(player, "IMPLANT CHARGE // " + energy + "/" + capacity, ChatFormatting.GRAY);
         return true;
     }
 

@@ -15,7 +15,7 @@ A Minecraft 26.2 / NeoForge cyberware mod prototype inspired by Cyberpunk 2077 a
 - **Cyberdeck** — quickhack pulse that highlights and slows nearby hostile mobs.
 - **Cyberpsychosis** — neural strain accumulates when you activate cyberware and decays by one point every 30 seconds without implant use. At 12 strain, neural overload briefly applies weakness and slowness. Sandevistan builds strain fastest; cyberdeck builds it slowest.
 - Two mutually exclusive persistent implant slots: **Operating System** and **Arms**. Installed slot choices are stored on the player.
-- Implant chips and neural processors have crafting recipes.
+- All four cyberware implants can now be crafted from vanilla resources, implant chips and neural processors; those components also have recipes.
 - Russian and English item names, dedicated creative tab, item models using vanilla icons.
 - GitHub Actions compiles the mod and uploads the JAR artifact.
 

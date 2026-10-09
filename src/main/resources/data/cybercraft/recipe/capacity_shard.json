@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["RDR", "CNC", "RGR"],
+  "key": {
+    "R": "minecraft:redstone",
+    "D": "minecraft:diamond",
+    "C": "cybercraft:implant_chip",
+    "N": "cybercraft:neural_processor",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": { "id": "cybercraft:capacity_shard", "count": 1 }
+}

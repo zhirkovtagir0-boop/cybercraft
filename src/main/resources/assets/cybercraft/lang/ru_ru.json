@@ -4,5 +4,6 @@
   "item.cybercraft.monowire": "Моноструна",
   "item.cybercraft.cyberdeck": "Кибердека",
   "item.cybercraft.implant_chip": "Чип импланта",
-  "item.cybercraft.neural_processor": "Нейропроцессор"
+  "item.cybercraft.neural_processor": "Нейропроцессор",
+  "itemGroup.cybercraft": "Киберкрафт: Найт-Сити"
 }

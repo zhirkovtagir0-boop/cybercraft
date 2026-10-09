@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["IRI", " G ", " N "],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "G": "minecraft:gold_ingot",
+    "N": "cybercraft:neural_processor"
+  },
+  "result": { "id": "cybercraft:monowire", "count": 1 }
+}

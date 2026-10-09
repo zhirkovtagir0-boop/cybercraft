@@ -23,6 +23,7 @@ public final class CyberwareItem extends Item {
     private static final String OS_SLOT = "cybercraft_implant_os";
     private static final String ARMS_SLOT = "cybercraft_implant_arms";
     private static final String STRAIN_KEY = "cybercraft_neural_strain";
+    private static final String STRAIN_TIME_KEY = "cybercraft_neural_strain_time";
     private static final int CYBERPSYCHOSIS_THRESHOLD = 12;
 
     private final Ability ability;
@@ -95,7 +96,7 @@ public final class CyberwareItem extends Item {
         }
 
         if (!level.isClientSide()) {
-            if (addNeuralStrain(player)) {
+            if (addNeuralStrain(player, level)) {
                 player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1));
                 notifyPlayer(player, "CYBERPSYCHOSIS // NEURAL OVERLOAD", ChatFormatting.DARK_RED);
@@ -139,9 +140,17 @@ public final class CyberwareItem extends Item {
      * Tracks cumulative neural load. Overusing implants triggers a brief
      * cyberpsychosis episode and partially resets accumulated strain.
      */
-    private boolean addNeuralStrain(Player player) {
+    private boolean addNeuralStrain(Player player, Level level) {
         var data = player.getPersistentData();
-        int strain = data.getInt(STRAIN_KEY).orElse(0) + strainCost();
+        long now = level.getGameTime();
+        long lastTime = data.getLong(STRAIN_TIME_KEY).orElse(now);
+        int strain = data.getInt(STRAIN_KEY).orElse(0);
+
+        // One strain point naturally dissipates every 30 seconds without implant use.
+        int recovered = (int) Math.min(Integer.MAX_VALUE, Math.max(0L, now - lastTime) / 600L);
+        strain = Math.max(0, strain - recovered) + strainCost();
+        data.putLong(STRAIN_TIME_KEY, now);
+
         if (strain >= CYBERPSYCHOSIS_THRESHOLD) {
             data.putInt(STRAIN_KEY, 4);
             return true;

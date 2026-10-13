@@ -135,7 +135,7 @@ public final class CyberwareItem extends Item {
                     AABB field = player.getBoundingBox().inflate(14.0);
                     for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, field,
                             entity -> entity != player && entity.isAlive()
-                                    && (entity instanceof Monster || entity instanceof net.minecraft.world.entity.projectile.Projectile))) {
+                                    && entity instanceof Monster)) {
                         target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 4));
                         target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
                         slowed++;

@@ -6,5 +6,7 @@
   "item.cybercraft.implant_chip": "Implant Chip",
   "item.cybercraft.neural_processor": "Neural Processor",
   "itemGroup.cybercraft": "Cybercraft: Night City",
-  "item.cybercraft.capacity_shard": "Cyberware Capacity Shard"
+  "item.cybercraft.capacity_shard": "Cyberware Capacity Shard",
+  "key.cybercraft.open_cyberdeck": "Open Cyberdeck Interface",
+  "key.categories.cybercraft": "Cybercraft"
 }

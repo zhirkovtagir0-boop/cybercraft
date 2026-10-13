@@ -8,5 +8,10 @@
   "itemGroup.cybercraft": "Cybercraft: Night City",
   "item.cybercraft.capacity_shard": "Cyberware Capacity Shard",
   "key.cybercraft.open_cyberdeck": "Open Cyberdeck Interface",
-  "key.categories.cybercraft": "Cybercraft"
+  "key.categories.cybercraft": "Cybercraft",
+  "gui.cybercraft.cyberdeck.title": "CYBERDECK // QUICKHACKS",
+  "gui.cybercraft.cyberdeck.subtitle": "SELECT ONE QUICKHACK",
+  "gui.cybercraft.quickhack.ping": "PING // Scan threats",
+  "gui.cybercraft.quickhack.cripple": "CRIPPLE // Slow targets",
+  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Damage"
 }

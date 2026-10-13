@@ -8,5 +8,10 @@
   "itemGroup.cybercraft": "Киберкрафт: Найт-Сити",
   "item.cybercraft.capacity_shard": "Осколок ёмкости киберимплантов",
   "key.cybercraft.open_cyberdeck": "Открыть интерфейс кибердеки",
-  "key.categories.cybercraft": "Киберкрафт"
+  "key.categories.cybercraft": "Киберкрафт",
+  "gui.cybercraft.cyberdeck.title": "КИБЕРДЕКА // БЫСТРЫЕ ВЗЛОМЫ",
+  "gui.cybercraft.cyberdeck.subtitle": "ВЫБЕРИТЕ БЫСТРЫЙ ВЗЛОМ",
+  "gui.cybercraft.quickhack.ping": "PING // Поиск угроз",
+  "gui.cybercraft.quickhack.cripple": "CRIPPLE // Замедлить цели",
+  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Урон"
 }

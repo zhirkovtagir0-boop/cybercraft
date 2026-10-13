@@ -126,10 +126,23 @@ public final class CyberwareItem extends Item {
 
             switch (ability) {
                 case SANDEVISTAN -> {
+                    // Sandevistan fantasy: the user accelerates while nearby threats
+                    // are heavily slowed, approximating the local time-dilation effect
+                    // without changing the server's global tick rate.
                     player.addEffect(new MobEffectInstance(MobEffects.SPEED, 100, 2));
-                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 60, 0));
+                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 100, 0));
+                    int slowed = 0;
+                    AABB field = player.getBoundingBox().inflate(14.0);
+                    for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, field,
+                            entity -> entity != player && entity.isAlive()
+                                    && (entity instanceof Monster || entity instanceof net.minecraft.world.entity.projectile.Projectile))) {
+                        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 4));
+                        target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
+                        slowed++;
+                    }
                     player.getCooldowns().addCooldown(stack, 240);
-                    notifyPlayer(player, "SANDEVISTAN // SYSTEM ONLINE", ChatFormatting.AQUA);
+                    notifyPlayer(player, "SANDEVISTAN // TIME DILATION // " + slowed + " THREAT(S) SLOWED",
+                            ChatFormatting.AQUA);
                 }
                 case MANTIS_BLADES -> {
                     int hits = strike(level, player, 2.8, 7.0f, 1.4);

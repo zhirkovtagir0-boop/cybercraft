@@ -17,7 +17,7 @@ import org.lwjgl.glfw.GLFW;
 @EventBusSubscriber(modid = Cybercraft.MOD_ID, value = Dist.CLIENT)
 public final class CybercraftClient {
     private static final KeyMapping OPEN_CYBERDECK = new KeyMapping(
-            "key.cybercraft.open_cyberdeck", GLFW.GLFW_KEY_G, "key.categories.cybercraft");
+            "key.cybercraft.open_cyberdeck", GLFW.GLFW_KEY_G, KeyMapping.Category.MISC);
 
     private CybercraftClient() {}
 
@@ -29,13 +29,13 @@ public final class CybercraftClient {
 
     private static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null || minecraft.getOverlay() != null) return;
+        if (minecraft.player == null || minecraft.gui.screen() != null) return;
         while (OPEN_CYBERDECK.consumeClick()) {
             LocalPlayer player = minecraft.player;
             ItemStack main = player.getMainHandItem();
             ItemStack off = player.getOffhandItem();
             if (main.is(ModItems.CYBERDECK.get()) || off.is(ModItems.CYBERDECK.get())) {
-                minecraft.pushGuiLayer(new CyberdeckScreen());
+                minecraft.gui.setScreen(new CyberdeckScreen());
             }
         }
     }

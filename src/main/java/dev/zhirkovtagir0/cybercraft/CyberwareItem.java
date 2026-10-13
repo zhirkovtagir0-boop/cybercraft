@@ -155,16 +155,33 @@ public final class CyberwareItem extends Item {
                     notifyPlayer(player, "MONOWIRE // " + hits + " TARGET(S) CUT", ChatFormatting.LIGHT_PURPLE);
                 }
                 case CYBERDECK -> {
+                    int selectedHack = Math.max(0, Math.min(2,
+                            player.getPersistentData().getInt("cybercraft_selected_quickhack").orElse(0)));
                     int hacked = 0;
                     for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class,
                             player.getBoundingBox().inflate(12.0),
                             entity -> entity instanceof Monster && entity.isAlive())) {
-                        target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0));
-                        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 1));
+                        switch (selectedHack) {
+                            case 0 -> target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 160, 0));
+                            case 1 -> {
+                                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 120, 3));
+                                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 120, 1));
+                            }
+                            case 2 -> {
+                                target.hurt(level.damageSources().magic(), 6.0f);
+                                target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 80, 0));
+                            }
+                        }
                         hacked++;
                     }
-                    player.getCooldowns().addCooldown(stack, 160);
-                    notifyPlayer(player, "QUICKHACK // " + hacked + " TARGET(S)", ChatFormatting.GREEN);
+                    player.getCooldowns().addCooldown(stack, selectedHack == 2 ? 200 : 160);
+                    String hackName = switch (selectedHack) {
+                        case 0 -> "PING";
+                        case 1 -> "CRIPPLE MOVEMENT";
+                        default -> "SYSTEM SHOCK";
+                    };
+                    notifyPlayer(player, "QUICKHACK // " + hackName + " // " + hacked + " TARGET(S)",
+                            ChatFormatting.GREEN);
                 }
             }
         }

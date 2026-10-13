@@ -14,7 +14,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber(modid = Cybercraft.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Cybercraft.MOD_ID, value = Dist.CLIENT)
 public final class CybercraftClient {
     private static final KeyMapping OPEN_CYBERDECK = new KeyMapping(
             "key.cybercraft.open_cyberdeck", GLFW.GLFW_KEY_G, "key.categories.cybercraft");
@@ -29,13 +29,13 @@ public final class CybercraftClient {
 
     private static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null || minecraft.screen != null) return;
+        if (minecraft.player == null || minecraft.getOverlay() != null) return;
         while (OPEN_CYBERDECK.consumeClick()) {
             LocalPlayer player = minecraft.player;
             ItemStack main = player.getMainHandItem();
             ItemStack off = player.getOffhandItem();
             if (main.is(ModItems.CYBERDECK.get()) || off.is(ModItems.CYBERDECK.get())) {
-                minecraft.setScreen(new CyberdeckScreen());
+                minecraft.pushGuiLayer(new CyberdeckScreen());
             }
         }
     }

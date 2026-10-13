@@ -6,5 +6,7 @@
   "item.cybercraft.implant_chip": "Чип импланта",
   "item.cybercraft.neural_processor": "Нейропроцессор",
   "itemGroup.cybercraft": "Киберкрафт: Найт-Сити",
-  "item.cybercraft.capacity_shard": "Осколок ёмкости киберимплантов"
+  "item.cybercraft.capacity_shard": "Осколок ёмкости киберимплантов",
+  "key.cybercraft.open_cyberdeck": "Открыть интерфейс кибердеки",
+  "key.categories.cybercraft": "Киберкрафт"
 }

@@ -1,7 +1,7 @@
 package dev.zhirkovtagir0.cybercraft.client;
 
 import dev.zhirkovtagir0.cybercraft.CybercraftNetwork;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public final class CyberdeckScreen extends Screen {
     }
 
     private void select(int hack) {
-        PacketDistributor.sendToServer(new CybercraftNetwork.SelectQuickhack(hack));
+        net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new CybercraftNetwork.SelectQuickhack(hack));
         onClose();
     }
 
@@ -38,9 +38,9 @@ public final class CyberdeckScreen extends Screen {
         int top = this.height / 2 - 75;
         graphics.fill(left, top, left + 250, top + 175, 0xE5101820);
         graphics.fill(left, top, left + 250, top + 2, 0xFF35F2C1);
-        graphics.drawCenteredString(this.font, this.title, this.width / 2, top + 12, 0xFF35F2C1);
-        graphics.drawCenteredString(this.font, "SELECT ONE QUICKHACK", this.width / 2, top + 29, 0xFFB8C7D9);
-        super.render(graphics, mouseX, mouseY, partialTick);
+        graphics.centeredText(this.font, this.title, this.width / 2, top + 12, 0xFF35F2C1);
+        graphics.centeredText(this.font, "SELECT ONE QUICKHACK", this.width / 2, top + 29, 0xFFB8C7D9);
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
     }
 
     @Override

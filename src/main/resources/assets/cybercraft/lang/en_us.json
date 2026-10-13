@@ -13,5 +13,7 @@
   "gui.cybercraft.cyberdeck.subtitle": "SELECT ONE QUICKHACK",
   "gui.cybercraft.quickhack.ping": "PING // Scan threats",
   "gui.cybercraft.quickhack.cripple": "CRIPPLE // Slow targets",
-  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Damage"
+  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Damage",
+  "message.cybercraft.cyberdeck_required": "CYBERDECK REQUIRED // Hold the deck to select a quickhack",
+  "message.cybercraft.quickhack_selected": "CYBERDECK // %s SELECTED"
 }

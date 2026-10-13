@@ -13,5 +13,7 @@
   "gui.cybercraft.cyberdeck.subtitle": "ВЫБЕРИТЕ БЫСТРЫЙ ВЗЛОМ",
   "gui.cybercraft.quickhack.ping": "PING // Поиск угроз",
   "gui.cybercraft.quickhack.cripple": "CRIPPLE // Замедлить цели",
-  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Урон"
+  "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Урон",
+  "message.cybercraft.cyberdeck_required": "НУЖНА КИБЕРДЕКА // Держите её в руке, чтобы выбрать взлом",
+  "message.cybercraft.quickhack_selected": "КИБЕРДЕКА // ВЫБРАН ВЗЛОМ: %s"
 }

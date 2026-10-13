@@ -10,7 +10,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-@EventBusSubscriber(modid = Cybercraft.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Cybercraft.MOD_ID)
 public final class CybercraftNetwork {
     private CybercraftNetwork() {}
 
@@ -34,7 +34,7 @@ public final class CybercraftNetwork {
     }
 
     private static void handleSelectQuickhack(SelectQuickhack payload, IPayloadContext context) {
-        context.player().getServer().execute(() -> {
+        context.enqueueWork(() -> {
             if (payload.hack() < 0 || payload.hack() > 2) return;
             context.player().getPersistentData().putInt("cybercraft_selected_quickhack", payload.hack());
             context.player().sendSystemMessage(net.minecraft.network.chat.Component.literal(

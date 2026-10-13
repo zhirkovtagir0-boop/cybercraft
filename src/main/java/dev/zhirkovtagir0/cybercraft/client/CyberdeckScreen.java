@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public final class CyberdeckScreen extends Screen {
     public CyberdeckScreen() {
@@ -27,19 +27,23 @@ public final class CyberdeckScreen extends Screen {
     }
 
     private void select(int hack) {
-        net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new CybercraftNetwork.SelectQuickhack(hack));
+        ClientPacketDistributor.sendToServer(new CybercraftNetwork.SelectQuickhack(hack));
         onClose();
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics, mouseX, mouseY, partialTick);
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
         int left = this.width / 2 - 125;
         int top = this.height / 2 - 75;
         graphics.fill(left, top, left + 250, top + 175, 0xE5101820);
         graphics.fill(left, top, left + 250, top + 2, 0xFF35F2C1);
-        graphics.centeredText(this.font, this.title, this.width / 2, top + 12, 0xFF35F2C1);
-        graphics.centeredText(this.font, "SELECT ONE QUICKHACK", this.width / 2, top + 29, 0xFFB8C7D9);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.centeredText(this.font, this.title, this.width / 2, this.height / 2 - 63, 0xFF35F2C1);
+        graphics.centeredText(this.font, "SELECT ONE QUICKHACK", this.width / 2, this.height / 2 - 46, 0xFFB8C7D9);
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
     }
 

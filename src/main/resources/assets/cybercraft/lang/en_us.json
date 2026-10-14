@@ -15,5 +15,13 @@
   "gui.cybercraft.quickhack.cripple": "CRIPPLE // Slow targets",
   "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Damage",
   "message.cybercraft.cyberdeck_required": "CYBERDECK REQUIRED // Hold the deck to select a quickhack",
-  "message.cybercraft.quickhack_selected": "CYBERDECK // %s SELECTED"
+  "message.cybercraft.quickhack_selected": "CYBERDECK // %s SELECTED",
+  "tooltip.cybercraft.slot": "Slot: %s",
+  "tooltip.cybercraft.slot.os": "Operating System",
+  "tooltip.cybercraft.slot.arms": "Arms",
+  "tooltip.cybercraft.install": "Sneak + right-click: install / remove",
+  "tooltip.cybercraft.activate": "Right-click: activate installed implant",
+  "tooltip.cybercraft.energy_cost": "Energy cost: %s",
+  "tooltip.cybercraft.strain_cost": "Neural strain: +%s",
+  "tooltip.cybercraft.cyberdeck": "Press G while holding the deck to configure quickhacks."
 }

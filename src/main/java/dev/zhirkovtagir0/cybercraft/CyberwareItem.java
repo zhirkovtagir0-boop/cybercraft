@@ -80,6 +80,24 @@ public final class CyberwareItem extends Item {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context,
+                                java.util.List<Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltip, flag);
+        tooltip.add(Component.translatable("tooltip.cybercraft.slot",
+                Component.translatable("tooltip.cybercraft.slot." + (slotKey().equals(OS_SLOT) ? "os" : "arms")))
+                .withStyle(ChatFormatting.AQUA));
+        tooltip.add(Component.translatable("tooltip.cybercraft.install").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.cybercraft.activate").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.cybercraft.energy_cost", energyCost())
+                .withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.cybercraft.strain_cost", strainCost())
+                .withStyle(ChatFormatting.LIGHT_PURPLE));
+        if (ability == Ability.CYBERDECK) {
+            tooltip.add(Component.translatable("tooltip.cybercraft.cyberdeck").withStyle(ChatFormatting.GREEN));
+        }
+    }
+
+    @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 

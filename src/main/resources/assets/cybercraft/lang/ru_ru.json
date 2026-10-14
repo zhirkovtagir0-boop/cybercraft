@@ -15,5 +15,13 @@
   "gui.cybercraft.quickhack.cripple": "CRIPPLE // Замедлить цели",
   "gui.cybercraft.quickhack.shock": "SYSTEM SHOCK // Урон",
   "message.cybercraft.cyberdeck_required": "НУЖНА КИБЕРДЕКА // Держите её в руке, чтобы выбрать взлом",
-  "message.cybercraft.quickhack_selected": "КИБЕРДЕКА // ВЫБРАН ВЗЛОМ: %s"
+  "message.cybercraft.quickhack_selected": "КИБЕРДЕКА // ВЫБРАН ВЗЛОМ: %s",
+  "tooltip.cybercraft.slot": "Слот: %s",
+  "tooltip.cybercraft.slot.os": "Операционная система",
+  "tooltip.cybercraft.slot.arms": "Руки",
+  "tooltip.cybercraft.install": "Shift + ПКМ: установить / снять",
+  "tooltip.cybercraft.activate": "ПКМ: активировать установленный имплант",
+  "tooltip.cybercraft.energy_cost": "Расход энергии: %s",
+  "tooltip.cybercraft.strain_cost": "Нейронная нагрузка: +%s",
+  "tooltip.cybercraft.cyberdeck": "Нажмите G с кибердекой в руке, чтобы настроить быстрые взломы."
 }
